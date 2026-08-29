@@ -1,0 +1,61 @@
+
+---
+
+## 2. src/App.jsx
+```jsx
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store';
+import './App.css';
+import AboutUs from './components/AboutUs';
+import ProductList from './components/ProductList';
+import CartItem from './components/CartItem';
+import { useSelector } from 'react-redux';
+
+function App() {
+  return (
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/plants" element={<ProductList />} />
+            <Route path="/cart" element={<CartItem />} />
+          </Routes>
+        </div>
+      </Router>
+    </Provider>
+  );
+}
+
+const LandingPage = () => {
+  const cartItems = useSelector(state => state.cart.items);
+  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+  return (
+    <div className="landing-container">
+      <nav className="navbar">
+        <div className="nav-brand">🌿 Paradise Nursery</div>
+        <div className="nav-links">
+          <Link to="/">Home</Link>
+          <Link to="/plants">Plants</Link>
+          <Link to="/cart" className="cart-link">
+            🛒 Cart {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
+          </Link>
+        </div>
+      </nav>
+      
+      <div className="landing-content">
+        <h1 className="company-name">🌿 Paradise Nursery</h1>
+        <p className="tagline">Bring Nature Home</p>
+        <Link to="/plants">
+          <button className="get-started-btn">Get Started</button>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default App;
