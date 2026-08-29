@@ -13,7 +13,7 @@ const AboutUs = () => {
         </div>
       </nav>
 
-      <div className="about-container">
+      <div className="about-us-container">
         <h1>🌱 About Paradise Nursery</h1>
         <p>
           Welcome to Paradise Nursery, your trusted source for beautiful, 
